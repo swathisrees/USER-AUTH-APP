@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center">
+    <div class="auth-container">
+        <h1>Set Up Two-Factor Authentication</h1>
+        
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="qr-container">
+            <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" style="width: 200px; height: 200px;">
+        </div>
+
+        <div class="secret-container">
+            <p class="secret-label">Secret Key</p>
+            <p class="secret-key">{{ secret_key }}</p>
+            <small>Scan QR code or enter key in authenticator app</small>
+        </div>
+
+        <form method="POST" action="{% url 'verify_2fa' %}">
+            {% csrf_token %}
+            <div class="txt_field">
+                <input type="text" name="otp_code" required>
+                <label>Enter Verification Code</label>
+            </div>
+            <input type="submit" value="Verify" class="submit-btn">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

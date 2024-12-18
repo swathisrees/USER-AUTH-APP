@@ -1,0 +1,9 @@
+django
+pyotp
+qrcode
+google-auth 
+google-auth-oauthlib 
+google-api-python-client
+python-dotenv   
+jwt
+psycopg2
